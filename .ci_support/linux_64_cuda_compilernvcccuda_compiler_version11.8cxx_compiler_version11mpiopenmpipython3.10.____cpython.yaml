@@ -34,6 +34,8 @@ pytorch:
 - '2.0'
 target_platform:
 - linux-64
+tensorflow:
+- '2.14'
 zip_keys:
 - - cxx_compiler_version
   - cuda_compiler
