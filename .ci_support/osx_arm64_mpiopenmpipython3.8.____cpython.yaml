@@ -30,3 +30,5 @@ pytorch:
 - '2.0'
 target_platform:
 - osx-arm64
+tensorflow:
+- '2.14'
