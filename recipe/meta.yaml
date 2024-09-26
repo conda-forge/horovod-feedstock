@@ -16,10 +16,11 @@ source:
     - 3998.patch
 
 build:
-  number: 7
+  number: 101
   skip: true  # [win]
   skip: true  # [py<39]
   skip: ture  # [py>=312 and cuda_compiler_version in ("11.2", "11.8")]
+  skip: true  # [py>=312]
   string: {{ proc_type }}_mpi_{{ mpi }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   ignore_run_exports_from:
     - flatbuffers
@@ -54,8 +55,7 @@ requirements:
     - make  # [unix]
     - python  # [build_platform != target_platform]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
-    - flatbuffers 23.5.26  # [(cuda_compiler_version or "").startswith("11")]
-    - flatbuffers  # [not (cuda_compiler_version or "").startswith("11")]
+    - flatbuffers 23.5.26
     - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
   host:
     - python
@@ -77,11 +77,10 @@ requirements:
     # https://github.com/conda-forge/tensorflow-feedstock/pull/367#issuecomment-1890751416
     - tensorflow 2.14.*  # [(cuda_compiler_version or "").startswith("11")]
     - pytorch 2.0.*  # [(cuda_compiler_version or "").startswith("11")]
-    - flatbuffers 23.5.26  # [(cuda_compiler_version or "").startswith("11")]
     # pytorch 2.0 uses pkg_resources.packaging, removed in setuptools 70
     - setuptools <70  # [(cuda_compiler_version or "").startswith("11")]
     # for flatc
-    - flatbuffers  # [not (cuda_compiler_version or "").startswith("11")]
+    - flatbuffers 23.5.26
     - libboost-headers
     - lbfgspp
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
