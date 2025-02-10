@@ -11,7 +11,7 @@ if [[ ${cuda_compiler_version} != "None" ]]; then
     export HOROVOD_NCCL_LINK=SHARED
     export HOROVOD_CUDA_HOME=/usr/local/cuda
 fi
-if [[ ${cuda_compiler_version} == "12.0" ]]; then
+if [[ ${cuda_compiler_version} == 12* ]]; then
     export HOROVOD_CUDA_HOME=$BUILD_PREFIX
 fi
 export HOROVOD_WITH_TENSORFLOW=1
