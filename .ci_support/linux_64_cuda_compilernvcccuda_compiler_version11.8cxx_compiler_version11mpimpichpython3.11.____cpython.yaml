@@ -17,9 +17,9 @@ cxx_compiler:
 cxx_compiler_version:
 - '11'
 docker_image:
-- quay.io/condaforge/linux-anvil-cuda:11.8
+- quay.io/condaforge/linux-anvil-x86_64-cuda11.8:ubi8
 flatbuffers:
-- 24.3.25
+- 24.12.23
 libboost_headers:
 - '1.86'
 mpi:
@@ -37,14 +37,13 @@ pin_run_as_build:
 python:
 - 3.11.* *_cpython
 pytorch:
-- '2.4'
+- '2.6'
 target_platform:
 - linux-64
 tensorflow:
 - '2.17'
 zip_keys:
 - - cxx_compiler_version
-  - c_stdlib_version
   - cuda_compiler
   - cuda_compiler_version
   - docker_image
