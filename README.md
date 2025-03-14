@@ -329,6 +329,3 @@ Feedstock Maintainers
 
 * [@njzjz](https://github.com/njzjz/)
 
-
-<!-- dummy commit to enable rerendering -->
-
