@@ -18,10 +18,8 @@ source:
 build:
   number: 10
   skip: true  # [win]
-  skip: true  # [py<39]
-  skip: true  # [py>=312 and cuda_compiler_version in ("11.2", "11.8")]
-  # https://github.com/conda-forge/tensorflow-feedstock/issues/419
-  skip: true  # [osx]
+  # pytorch/tensorflow builds in conda-forge are 12+ only
+  skip: true  # [cuda_compiler_version in ("11.8",)]
   string: {{ proc_type }}_mpi_{{ mpi }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   ignore_run_exports_from:
     - flatbuffers
