@@ -9,9 +9,9 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- cuda-nvcc
+- None
 cuda_compiler_version:
-- '12.6'
+- None
 cxx_compiler:
 - gxx
 cxx_compiler_version:
@@ -23,7 +23,7 @@ flatbuffers:
 libboost_headers:
 - '1.86'
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 nccl:
@@ -35,7 +35,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.13.* *_cp313
 pytorch:
 - '2.6'
 target_platform:
