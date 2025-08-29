@@ -9,21 +9,21 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cuda_compiler:
-- None
+- cuda-nvcc
 cuda_compiler_version:
 - None
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '13'
+- '14'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
 - 24.12.23
 libboost_headers:
-- '1.86'
+- '1.88'
 mpi:
-- openmpi
+- mpich
 mpich:
 - '4'
 nccl:
@@ -35,7 +35,7 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.12.* *_cpython
 pytorch:
 - '2.6'
 target_platform:
@@ -44,6 +44,4 @@ tensorflow:
 - '2.18'
 zip_keys:
 - - cxx_compiler_version
-  - cuda_compiler
   - cuda_compiler_version
-  - docker_image
