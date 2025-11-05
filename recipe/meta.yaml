@@ -16,6 +16,7 @@ source:
     - 3998.patch
     - 4313.patch
     - 4314.patch
+    - fix_statusor.patch
 
 build:
   number: 12
