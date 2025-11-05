@@ -14,12 +14,16 @@ source:
     - 0002-skip-python-for-crosscompiling.patch
     - 3957.patch
     - 3998.patch
+    - 4313.patch
+    - 4314.patch
+    - fix_statusor.patch
 
 build:
-  number: 11
+  number: 12
   skip: true  # [win]
   # pytorch/tensorflow builds in conda-forge are 12+ only
   skip: true  # [cuda_compiler_version in ("11.8",)]
+  skip: true  # [py==313]
   string: {{ proc_type }}_mpi_{{ mpi }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   ignore_run_exports_from:
     - flatbuffers
@@ -87,6 +91,7 @@ requirements:
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     - cuda-nvtx-dev    # [(cuda_compiler_version or "").startswith("12")]
     - cffi >=1.4.0
+    - llvmdev
 
   run:
     - python

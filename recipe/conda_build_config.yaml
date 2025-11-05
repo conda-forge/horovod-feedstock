@@ -3,4 +3,9 @@ mpi:
   - openmpi
 
 tensorflow:
-  - "2.18"
+- '2.19'  # [linux64]
+- '2.18'  # [not linux64]
+pytorch:
+- '2.6'  # [not linux64]
+flatbuffers:
+- '24.12.23'  # [not linux64]

@@ -1,0 +1,30 @@
+diff --git a/horovod/tensorflow/xla_mpi_ops.cc b/horovod/tensorflow/xla_mpi_ops.cc
+index d2b49c3a..de57a2cf 100644
+--- a/horovod/tensorflow/xla_mpi_ops.cc
++++ b/horovod/tensorflow/xla_mpi_ops.cc
+@@ -20,6 +20,7 @@
+ #include <unordered_map>
+ 
+ 
++#include "absl/status/statusor.h"
+ #if TENSORFLOW_VERSION >= 2006000000
+ 
+ #include "tensorflow/compiler/tf2xla/xla_op_kernel.h"
+@@ -229,7 +230,7 @@ public:
+   }
+ 
+ private:
+-  ::xla::StatusOr<::xla::XlaOp> BuildAllreduceCustomCall(
++  absl::StatusOr<::xla::XlaOp> BuildAllreduceCustomCall(
+       ::xla::XlaBuilder* b, absl::Span<const ::xla::XlaOp> operands,
+       bool is_start,
+       absl::Span<const std::pair<::xla::ShapeIndex,
+@@ -278,7 +279,7 @@ private:
+ HVD_REGISTER_XLA_OP("HorovodAllreduce", HVDAllreduceOp);
+ 
+ // A helper function to build HLOs for all-reduce.
+-::xla::StatusOr<::xla::XlaOp> HVDAllreduceOp::BuildAllreduceCustomCall(
++absl::StatusOr<::xla::XlaOp> HVDAllreduceOp::BuildAllreduceCustomCall(
+     ::xla::XlaBuilder* b, absl::Span<const ::xla::XlaOp> operands,
+     bool is_start,
+     absl::Span<

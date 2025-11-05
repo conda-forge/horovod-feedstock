@@ -1,0 +1,25 @@
+From b10b6bde471b17f78e503e2ad75364d8c6686414 Mon Sep 17 00:00:00 2001
+From: Jinzhe Zeng <jinzhe.zeng@ustc.edu.cn>
+Date: Wed, 5 Nov 2025 17:11:00 +0800
+Subject: [PATCH] Fix compilation errors when using GCC 14 and CUDA C++ 11
+
+Signed-off-by: Jinzhe Zeng <jinzhe.zeng@ustc.edu.cn>
+---
+ horovod/common/ops/cuda/CMakeLists.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/horovod/common/ops/cuda/CMakeLists.txt b/horovod/common/ops/cuda/CMakeLists.txt
+index 383185ef14..a4a8c8039f 100644
+--- a/horovod/common/ops/cuda/CMakeLists.txt
++++ b/horovod/common/ops/cuda/CMakeLists.txt
+@@ -8,6 +8,10 @@ MESSAGE(STATUS "HVD_NVCC_COMPILE_FLAGS = ${HVD_NVCC_COMPILE_FLAGS}")
+ # the --std=c++... argument is passed multiple times.
+ set(CMAKE_CUDA_STANDARD 11)
+ set(CMAKE_CUDA_STANDARD_REQUIRED ON)
++# NVCC compilation errors with gcc-14 and c++11
++if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL "14")
++  set(CMAKE_CUDA_STANDARD 14)
++endif()
+ 
+ add_library(horovod_cuda_kernels cuda_kernels.cu)
+ target_compile_options(horovod_cuda_kernels PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:
