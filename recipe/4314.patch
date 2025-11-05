@@ -1,0 +1,28 @@
+From 0190f7524c678c77bab48d19632935c2678ad434 Mon Sep 17 00:00:00 2001
+From: Jinzhe Zeng <jinzhe.zeng@ustc.edu.cn>
+Date: Wed, 5 Nov 2025 18:13:08 +0800
+Subject: [PATCH] Update xla_builder.h path for TF 2.19
+
+See https://github.com/tensorflow/tensorflow/commit/9dc865005edc8906b63602e587252a56b3881ede#diff-ab018f944aff84d93c3f3d2083ac329d3a109fdedc54be5b10b098b31dabba6e
+
+Signed-off-by: Jinzhe Zeng <jinzhe.zeng@ustc.edu.cn>
+---
+ horovod/tensorflow/xla_mpi_ops.cc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/horovod/tensorflow/xla_mpi_ops.cc b/horovod/tensorflow/xla_mpi_ops.cc
+index 84973db6a6..d2b49c3a5a 100644
+--- a/horovod/tensorflow/xla_mpi_ops.cc
++++ b/horovod/tensorflow/xla_mpi_ops.cc
+@@ -24,7 +24,11 @@
+ 
+ #include "tensorflow/compiler/tf2xla/xla_op_kernel.h"
+ #include "tensorflow/compiler/tf2xla/xla_op_registry.h"
++#if TENSORFLOW_VERSION >= 2019000000
++#include "tensorflow/compiler/xla/hlo/builder/xla_builder.h"
++#else
+ #include "tensorflow/compiler/xla/client/xla_builder.h"
++#endif
+ #include "tensorflow/compiler/xla/service/custom_call_target_registry.h"
+ #include "tensorflow/compiler/xla/service/hlo.pb.h"
+ #include "tensorflow/compiler/xla/shape.h"
