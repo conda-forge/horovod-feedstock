@@ -89,6 +89,7 @@ requirements:
     - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
     - cuda-nvtx-dev    # [(cuda_compiler_version or "").startswith("12")]
     - cffi >=1.4.0
+    - llvmdev
 
   run:
     - python
