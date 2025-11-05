@@ -17,7 +17,7 @@ cxx_compiler_version:
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 flatbuffers:
-- 24.12.23
+- 25.2.10
 libboost_headers:
 - '1.88'
 mpi:
@@ -39,7 +39,7 @@ pytorch:
 target_platform:
 - linux-64
 tensorflow:
-- '2.18'
+- '2.19'
 zip_keys:
 - - cxx_compiler_version
   - c_stdlib_version
