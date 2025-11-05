@@ -21,6 +21,7 @@ build:
   skip: true  # [win]
   # pytorch/tensorflow builds in conda-forge are 12+ only
   skip: true  # [cuda_compiler_version in ("11.8",)]
+  skip: true  # [py==313]
   string: {{ proc_type }}_mpi_{{ mpi }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   ignore_run_exports_from:
     - flatbuffers
