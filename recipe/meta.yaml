@@ -14,6 +14,7 @@ source:
     - 0002-skip-python-for-crosscompiling.patch
     - 3957.patch
     - 3998.patch
+    - 4313.patch
 
 build:
   number: 12
