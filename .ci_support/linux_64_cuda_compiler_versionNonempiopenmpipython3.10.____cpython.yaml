@@ -23,7 +23,7 @@ libboost_headers:
 mpi:
 - openmpi
 mpich:
-- '4'
+- '5'
 nccl:
 - '2'
 openmpi:
