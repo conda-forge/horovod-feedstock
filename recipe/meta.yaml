@@ -16,7 +16,7 @@ source:
     - 3998.patch
     - 4313.patch
     - 4314.patch
-    - 4315.patch
+    - 4315.patch  # [osx and arm64]
     - fix_statusor.patch
 
 build:
