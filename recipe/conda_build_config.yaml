@@ -4,5 +4,3 @@ mpi:
 
 tensorflow:
 - '2.19'
-flatbuffers:
-- '24.12.23'  # [not linux64]
