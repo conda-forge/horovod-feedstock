@@ -19,7 +19,7 @@ source:
     - fix_statusor.patch
 
 build:
-  number: 16
+  number: 17
   skip: true  # [win]
   # pytorch/tensorflow builds in conda-forge are 12+ only
   skip: true  # [cuda_compiler_version in ("11.8",)]
@@ -27,6 +27,8 @@ build:
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
   skip: true  # [aarch64]
   skip: true  # [osx]
+  skip: true  # [is_abi3 and not is_python_min]
+  python_version_independent: true   # [is_abi3]
   string: {{ proc_type }}_mpi_{{ mpi }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   ignore_run_exports_from:
     - flatbuffers
@@ -65,6 +67,7 @@ requirements:
     - flatbuffers  # [not (cuda_compiler_version or "").startswith("11")]
     - {{ mpi }}  # [build_platform != target_platform and mpi == "openmpi"]
   host:
+    - python-abi3  # [is_abi3]
     - python
     - pip
     - wheel
