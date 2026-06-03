@@ -1,7 +1,7 @@
 About horovod-feedstock
 =======================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/horovod-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/horovod-feedstock-clean-feedstock/blob/main/LICENSE.txt)
 
 Home: https://horovod.ai/
 
@@ -20,9 +20,27 @@ Current build status
 <table><tr>
     <td>GitHub Actions</td>
     <td>
-      <a href="https://github.com/conda-forge/horovod-feedstock/actions/workflows/conda-build.yml">
-        <img src="https://github.com/conda-forge/horovod-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      <a href="https://github.com/conda-forge/horovod-feedstock-clean-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/horovod-feedstock-clean-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
       </a>
+    </td>
+  </tr>
+    
+  <tr>
+    <td>Azure</td>
+    <td>
+      <details>
+        <summary>
+          <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=None&branchName=main">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/horovod-feedstock-clean-feedstock?branchName=main">
+          </a>
+        </summary>
+        <table>
+          <thead><tr><th>Variant</th><th>Status</th></tr></thead>
+          <tbody>
+          </tbody>
+        </table>
+      </details>
     </td>
   </tr>
 </table>
