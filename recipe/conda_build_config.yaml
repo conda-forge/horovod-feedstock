@@ -4,3 +4,5 @@ mpi:
 
 tensorflow:
 - '2.19'
+libabseil:
+- '20260107'
