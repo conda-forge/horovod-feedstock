@@ -19,7 +19,7 @@ docker_image:
 flatbuffers:
 - 25.9.23
 libabseil:
-- '20260526'
+- '20260107'
 libboost_headers:
 - '1.90'
 mpi:
