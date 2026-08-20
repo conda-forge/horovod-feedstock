@@ -3,6 +3,6 @@ mpi:
   - openmpi
 
 tensorflow:
-- '2.19'
+- '2.21'
 libabseil:
 - '20260107'
