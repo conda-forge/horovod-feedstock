@@ -29,6 +29,8 @@ if [[ "${target_platform}" == osx-* ]]; then
     export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
 fi
 if [[ "${target_platform}" == osx-arm64 ]]; then
+    export CPPFLAGS="${CPPFLAGS:-} -I${PREFIX}/include"
+    export CXXFLAGS="${CXXFLAGS} -I${PREFIX}/include"
     export CMAKE_ARGS="${CMAKE_ARGS} -D Tensorflow_OUTPUT=\"2.19.0;${SP_DIR}/tensorflow/include;-L${SP_DIR}/tensorflow -ltensorflow_framework.2;-I${SP_DIR}/tensorflow/include -DEIGEN_MAX_ALIGN_BYTES=64\""
     export CMAKE_ARGS="${CMAKE_ARGS} -D Pytorch_VERSION=2.10.0"
     export CMAKE_ARGS="${CMAKE_ARGS} -D Pytorch_CUDA=OFF -DPytorch_ROCM=OFF"

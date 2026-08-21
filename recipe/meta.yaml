@@ -26,7 +26,7 @@ build:
   skip: true  # [py==313]
   skip: true  # [aarch64 and cuda_compiler_version != "None"]
   skip: true  # [aarch64]
-  skip: true  # [osx]
+  skip: true  # [osx and not arm64]
   string: {{ proc_type }}_mpi_{{ mpi }}_h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}
   ignore_run_exports_from:
     - flatbuffers
