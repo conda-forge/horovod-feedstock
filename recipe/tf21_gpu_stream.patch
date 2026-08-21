@@ -1,0 +1,135 @@
+--- a/horovod/tensorflow/mpi_ops.cc
++++ b/horovod/tensorflow/mpi_ops.cc
+@@ -54,17 +54,18 @@
+ #define gpuMemsetAsync hipMemsetAsync
+ #endif // HAVE_CUDA, HAVE_ROCM
+ 
+-// Forward declaration of AsGpuStreamValue
+-namespace stream_executor {
+-namespace gpu {
+-GpuStreamHandle AsGpuStreamValue(Stream* stream);
+-} // namespace stream_executor
+-} // namespace gpu
+ #if TENSORFLOW_VERSION >= 2011000000
+ #include "tensorflow/compiler/xla/stream_executor/stream.h"
+ #else
+ #include "tensorflow/stream_executor/stream.h"
+ #endif // TENSORFLOW_VERSION >= 2011000000
++
++// Use StreamExecutor's public platform handle instead of the private
++// AsGpuStreamValue symbol, which is no longer exported by TensorFlow 2.21.
++static GpuStreamHandle GetGpuStreamValue(stream_executor::Stream* stream) {
++  return reinterpret_cast<GpuStreamHandle>(
++      stream->platform_specific_handle().stream);
++}
+ #endif // HAVE_GPU
+ 
+ // Undef LOG macro from TensorFlow
+@@ -231,7 +232,7 @@
+     }
+   }
+   auto device_context = context->op_device_context();
+-  auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++  auto stream = GetGpuStreamValue(device_context->stream());
+   HVD_GPU_CHECK(gpuEventRecord(event_, stream));
+ }
+ 
+@@ -410,7 +411,7 @@
+   if (device_ != CPU_DEVICE_ID) {
+ #if HAVE_GPU
+     auto device_context = context_->op_device_context();
+-    auto stream = (device_context != nullptr) ? stream_executor::gpu::AsGpuStreamValue(device_context->stream()) : 0;
++    auto stream = (device_context != nullptr) ? GetGpuStreamValue(device_context->stream()) : 0;
+     void *ptr = (void*)zero_tensor->tensor_data().data();
+     auto size = zero_tensor->tensor_data().size();
+     gpuMemsetAsync(ptr, 0, size, stream);
+@@ -502,7 +503,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-                auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++                auto stream = GetGpuStreamValue(device_context->stream());
+                 HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+           }
+@@ -633,7 +634,7 @@
+               if (hvd_event.event) {
+                 auto device_context = context->op_device_context();
+                 if (device_context != nullptr) {
+-                    auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++                    auto stream = GetGpuStreamValue(device_context->stream());
+                     HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+                 }
+               }
+@@ -735,7 +736,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-                auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++                auto stream = GetGpuStreamValue(device_context->stream());
+                 HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+           }
+@@ -851,7 +852,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-              auto stream = stream_executor::gpu::AsGpuStreamValue(
++              auto stream = GetGpuStreamValue(
+                   device_context->stream());
+               HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+@@ -960,7 +961,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-                auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++                auto stream = GetGpuStreamValue(device_context->stream());
+                 HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+           }
+@@ -1176,7 +1177,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-              auto stream = stream_executor::gpu::AsGpuStreamValue(
++              auto stream = GetGpuStreamValue(
+                   device_context->stream());
+               HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+@@ -1346,7 +1347,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-              auto stream = stream_executor::gpu::AsGpuStreamValue(
++              auto stream = GetGpuStreamValue(
+                   device_context->stream());
+               HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+@@ -1518,7 +1519,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-              auto stream = stream_executor::gpu::AsGpuStreamValue(
++              auto stream = GetGpuStreamValue(
+                   device_context->stream());
+               HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+@@ -1623,7 +1624,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-                auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++                auto stream = GetGpuStreamValue(device_context->stream());
+                 HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+           }
+@@ -1865,7 +1866,7 @@
+           if (hvd_event.event) {
+             auto device_context = context->op_device_context();
+             if (device_context != nullptr) {
+-                auto stream = stream_executor::gpu::AsGpuStreamValue(device_context->stream());
++                auto stream = GetGpuStreamValue(device_context->stream());
+                 HVD_GPU_CHECK(gpuStreamWaitEvent(stream, *(hvd_event.event), 0));
+             }
+           }

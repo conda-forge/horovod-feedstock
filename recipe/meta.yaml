@@ -17,6 +17,7 @@ source:
     - 4313.patch
     - 4314.patch
     - fix_statusor.patch
+    - tf21_gpu_stream.patch
 
 build:
   number: 20
