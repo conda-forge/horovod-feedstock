@@ -18,9 +18,10 @@ source:
     - 4314.patch
     - fix_statusor.patch
     - tf21_gpu_stream.patch
+    - use_nvcc_gencode.patch
 
 build:
-  number: 20
+  number: 21
   skip: true  # [win]
   # pytorch/tensorflow builds in conda-forge are 12+ only
   skip: true  # [cuda_compiler_version in ("11.8",)]
@@ -92,8 +93,8 @@ requirements:
     - flatbuffers  # [not (cuda_compiler_version or "").startswith("11")]
     - libboost-headers
     - lbfgspp
-    - cuda-cudart-dev  # [(cuda_compiler_version or "").startswith("12")]
-    - cuda-nvtx-dev    # [(cuda_compiler_version or "").startswith("12")]
+    - cuda-cudart-dev  # [cuda_compiler_version != "None"]
+    - cuda-nvtx-dev    # [cuda_compiler_version != "None"]
     - cffi >=1.4.0
     - llvmdev
     - libabseil
