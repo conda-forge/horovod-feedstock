@@ -24,6 +24,18 @@ export HOROVOD_WITHOUT_MXNET=1
 export HOROVOD_WITH_MPI=1
 # gloo is not avaiable on conda-forge
 export HOROVOD_WITHOUT_GLOO=1
+
+# TensorFlow 2.21's public XLA headers include HighwayHash and FarmHash using
+# paths that are relative to their external repositories. The wheel installs
+# those repositories below external/, but tf.sysconfig does not report them.
+for tensorflow_external_include in \
+    "${SP_DIR}/tensorflow/include/external/highwayhash" \
+    "${SP_DIR}/tensorflow/include/external/farmhash_archive/src"; do
+    if [[ -d "${tensorflow_external_include}" ]]; then
+        export CXXFLAGS="${CXXFLAGS} -I${tensorflow_external_include}"
+    fi
+done
+
 if [[ "${target_platform}" == osx-* ]]; then
     # https://conda-forge.org/docs/maintainer/knowledge_base.html#newer-c-features-with-old-sdk
     export CXXFLAGS="${CXXFLAGS} -D_LIBCPP_DISABLE_AVAILABILITY"
