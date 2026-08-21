@@ -9,12 +9,10 @@ flatc -c -I . --include-prefix ../common/wire -o horovod/tensorflow horovod/tens
 if [[ ${cuda_compiler_version} != "None" ]]; then
     export HOROVOD_GPU_OPERATIONS=NCCL
     export HOROVOD_NCCL_LINK=SHARED
-    export HOROVOD_CUDA_HOME=/usr/local/cuda
-    # horovod will set HVD_NVCC_COMPILE_FLAGS by itself
-    unset CUDAARCHS
-fi
-if [[ ${cuda_compiler_version} == 12* ]]; then
     export HOROVOD_CUDA_HOME=$BUILD_PREFIX
+    # Horovod's patched build helper consumes NVCC_GENCODE, including CUDA 13
+    # architecture suffixes. Avoid also letting CMake expand CUDAARCHS.
+    unset CUDAARCHS
 fi
 export HOROVOD_WITH_TENSORFLOW=1
 export HOROVOD_WITH_PYTORCH=1

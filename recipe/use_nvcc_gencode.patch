@@ -1,0 +1,24 @@
+diff --git a/cmake/build_utils.py b/cmake/build_utils.py
+index 72d5f17..697e858 100644
+--- a/cmake/build_utils.py
++++ b/cmake/build_utils.py
+@@ -14,6 +14,7 @@
+ # ==============================================================================
+ 
+ import os
++import shlex
+ import subprocess
+ import sys
+ 
+@@ -92,6 +93,11 @@ def get_nvcc_bin():
+ 
+ def get_nvcc_flags():
+     default_flags = ['-O3', '-Xcompiler', '-fPIC']
+     cc_list_env = os.environ.get('HOROVOD_BUILD_CUDA_CC_LIST')
++    nvcc_gencode_env = os.environ.get('NVCC_GENCODE')
++    if cc_list_env is None and nvcc_gencode_env:
++        # The compiler activation script provides toolkit- and platform-specific
++        # targets, including suffixed CUDA 13 architectures such as sm_100f.
++        return default_flags + shlex.split(nvcc_gencode_env)
+ 
+     # Invoke nvcc and extract all supported compute capabilities for CUDA toolkit version
